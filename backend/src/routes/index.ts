@@ -11,6 +11,10 @@ import {
 import { validateUserBody, validateAuthentication } from '../middlewares/validatons';
 
 const router = Router();
+// Обработка OPTIONS запросов для CORS preflight
+router.options('*', (req: Request, res: Response) => {
+  res.sendStatus(204);
+});
 router.post('/signup', validateUserBody, createUser);
 router.post('/signin', validateAuthentication, login);
 
