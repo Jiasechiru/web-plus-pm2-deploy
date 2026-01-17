@@ -12,6 +12,11 @@ module.exports = {
   apps: [{
     name: 'backend',
     script: './dist/app.js',
+    instances: 1,
+    exec_mode: 'fork',
+    env: {
+      NODE_ENV: 'production',
+    },
   }],
 
   deploy: {
@@ -21,15 +26,15 @@ module.exports = {
       ref: DEPLOY_REF,
       repo: DEPLOY_REPO,
       path: DEPLOY_PATH,
-      key: '/Users/jias/.ssh/magassh/private_key',
-      'pre-deploy-local': `scp -i  /Users/jias/.ssh/magassh/private_key ./.env.deploy ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
-      // 'post-deploy': 'cd backend && npm i && npm run build && pm2 startOrRestart ecosystem.config.js --env production',
+      key: '/Users/jias/.ssh/magassh',
+      'pre-deploy-local': `scp -i /Users/jias/.ssh/magassh .env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/backend/.env`,
       'post-deploy': `
-      cd backend &&
-      /home/user/.nvm/versions/node/v23.11.1/bin/npm ci &&
-      /home/user/.nvm/versions/node/v23.11.1/bin/npm run build &&
-      pm2 restart ecosystem.config.js --env production
-    `
+        cd ${DEPLOY_PATH}/current/backend &&
+        cp ${DEPLOY_PATH}/shared/backend/.env .env &&
+        npm ci &&
+        npm run build &&
+        pm2 startOrRestart ecosystem.config.js --env production
+      `,
     },
   },
 };

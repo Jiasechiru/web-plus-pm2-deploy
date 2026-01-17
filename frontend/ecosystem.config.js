@@ -9,10 +9,7 @@ const {
 } = process.env;
 
 module.exports = {
-  apps: [{
-    name: 'frontend',
-    script: './build/index.html',
-  }],
+  apps: [],
 
   deploy: {
     production: {
@@ -21,13 +18,12 @@ module.exports = {
       ref: DEPLOY_REF,
       repo: DEPLOY_REPO,
       path: DEPLOY_PATH,
-      key: '/Users/jias/.ssh/magassh/private_key',
+      key: '/Users/jias/.ssh/magassh',
       'post-deploy': `
-      cd frontend &&
-      /home/user/.nvm/versions/node/v23.11.1/bin/npm ci &&
-      /home/user/.nvm/versions/node/v23.11.1/bin/npm run build &&
-      echo "✅ Build completed"
-    `,
+        cd ${DEPLOY_PATH}/current/frontend &&
+        npm ci &&
+        npm run build
+      `,
     },
   },
 };
