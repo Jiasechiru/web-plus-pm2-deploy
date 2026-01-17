@@ -26,7 +26,7 @@ module.exports = {
       ref: DEPLOY_REF,
       repo: DEPLOY_REPO,
       path: DEPLOY_PATH,
-      key: '/Users/jias/.ssh/magassh',
+      key: '/Users/jias/.ssh/magassh/private_key',
       'pre-deploy-local': `scp -i /Users/jias/.ssh/magassh .env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/backend/.env`,
       'post-deploy': `
         cd ${DEPLOY_PATH}/current/backend &&
