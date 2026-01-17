@@ -22,7 +22,7 @@ module.exports = {
       repo: DEPLOY_REPO,
       path: DEPLOY_PATH,
       key: '/Users/jias/.ssh/magassh/private_key',
-      'post-deploy': 'cd frontend && npm i && npm run build',
+      'post-deploy': 'cd /home/user/.nvm/versions/node/v23.11.1/bin/npm ci &&/home/user/.nvm/versions/node/v23.11.1/bin/npm run build',
     },
   },
 };
