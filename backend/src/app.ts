@@ -15,14 +15,24 @@ mongoose.connect(DB_ADDRESS);
 
 // Настройка CORS для продакшена
 const corsOptions = {
-  origin: [
-    process.env.FRONTEND_URL || 'http://localhost:3001',
-    'https://medutaskdeploy.nomorepartiessbs.ru',
-    'http://medutaskdeploy.nomorepartiessbs.ru',
-  ],
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      process.env.FRONTEND_URL || 'http://localhost:3001',
+      'https://medutaskdeploy.nomorepartiessbs.ru',
+      'http://medutaskdeploy.nomorepartiessbs.ru',
+    ];
+    // Разрешаем запросы без origin (например, Postman) или из разрешенных доменов
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
