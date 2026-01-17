@@ -20,7 +20,7 @@ module.exports = {
       path: DEPLOY_PATH,
       key: '/Users/jias/.ssh/magassh/private_key',
       'post-deploy': `
-        cd ${DEPLOY_PATH}/current/frontend &&
+        cd ${DEPLOY_PATH}/current &&
         npm ci &&
         npm run build
       `,
