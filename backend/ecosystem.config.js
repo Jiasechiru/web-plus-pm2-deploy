@@ -24,7 +24,12 @@ module.exports = {
       key: '/Users/jias/.ssh/magassh/private_key',
       'pre-deploy-local': `scp ./.env.deploy ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
       // 'post-deploy': 'cd backend && npm i && npm run build && pm2 startOrRestart ecosystem.config.js --env production',
-      'post-deploy': `cd backend && /home/user/.nvm/versions/node/v23.11.1/bin/npm ci && /home/user/.nvm/versions/node/v23.11.1/bin/npm run build && pm2 startOrRestart ecosystem.config.js --env production echo "✅ Build completed"`
+      'post-deploy': `
+      cd backend &&
+      /home/user/.nvm/versions/node/v23.11.1/bin/npm ci &&
+      /home/user/.nvm/versions/node/v23.11.1/bin/npm run build &&
+      pm2 restart ecosystem.config.js --env production
+    `
     },
   },
 };
