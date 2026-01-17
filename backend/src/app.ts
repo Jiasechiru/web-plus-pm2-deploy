@@ -13,22 +13,15 @@ const { PORT = 3000 } = process.env;
 const app = express();
 mongoose.connect(DB_ADDRESS);
 
+
+
 // Настройка CORS для продакшена
-const allowedOrigins = [
-  'http://localhost:3001',
-  'https://medutaskdeploy.nomorepartiessbs.ru',
-  'http://medutaskdeploy.nomorepartiessbs.ru',
-];
-
-
-const corsOptions = {
-  origin: allowedOrigins,
+app.use(cors({
+  origin: 'https://medutaskdeploy.nomorepartiessbs.ru',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-};
-
-app.use(cors(corsOptions));
+}));
 // Обработка OPTIONS запросов для CORS preflight (до всех роутов)
 // app.options('*', cors(corsOptions));
 app.use(express.json());
