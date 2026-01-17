@@ -21,7 +21,7 @@ module.exports = {
       ref: DEPLOY_REF,
       repo: DEPLOY_REPO,
       path: DEPLOY_PATH,
-      key: '~/.ssh/id_ed25519',
+      key: '/Users/jias/.ssh/magassh/private_key',
       'post-deploy': 'cd frontend && npm i && npm run build',
     },
   },
