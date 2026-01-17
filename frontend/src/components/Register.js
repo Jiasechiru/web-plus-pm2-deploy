@@ -30,7 +30,7 @@ function Register({ onRegister }) {
           </label>
         </div>
         <div className="auth-form__wrapper">
-          <button className="auth-form__button" type="submit">Зарегистрироваться-------</button>
+          <button className="auth-form__button" type="submit">Зарегистрироваться</button>
           <p className="auth-form__text">Уже зарегистрированы? <Link className="auth-form__link" to="/signin">Войти</Link></p>
         </div>
       </form>
